@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-1. **Setting Up EC2 Instance with Ubuntu**
+1. [Setting Up EC2 Instance with Ubuntu](#setting-up-ec2-instance-with-ubuntu)
     - [Create EC2 Instance](#create-ec2-instance)
     - [Connect to EC2 Instance](#connect-to-ec2-instance)
     - [Update and Install Dependencies](#update-and-install-dependencies)
@@ -10,16 +10,14 @@
     - [Install Passenger and Nginx](#install-passenger-and-nginx)
     - [Configure Nginx](#configure-nginx)
     - [Control Nginx Server](#control-nginx-server)
-    
-2. **Deploying Ruby on Rails Application with Nginx and Passenger**
+2. [Deploying Ruby on Rails Application with Nginx and Passenger](#deploying-ruby-on-rails-application-with-nginx-and-passenger)
     - [Install Rails and Create New App](#install-rails-and-create-new-app)
     - [Configure Gemfile for Asset Pipeline](#configure-gemfile-for-asset-pipeline)
     - [Setup Nginx Control Script](#setup-nginx-control-script)
     - [Control Nginx Server](#control-nginx-server)
     - [Run Rails Server](#run-rails-server)
     - [Security Configuration](#security-configuration)
-    
-3. **Setting Up Rails Application with PostgreSQL**
+3. [Setting Up Rails Application with PostgreSQL](#setting-up-rails-application-with-postgresql)
     - [Clone Repository and Navigate to Directory](#clone-repository-and-navigate-to-directory)
     - [Install Required Dependencies](#install-required-dependencies)
     - [Install rbenv](#install-rbenv)
