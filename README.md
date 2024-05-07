@@ -15,6 +15,7 @@
     - [Run Rails Server](#run-rails-server)
     - [Security Configuration](#security-configuration)
 
+
 ## Setting Up EC2 Instance with Ubuntu
 1. **Create EC2 Instance:**
     - Log in to AWS Management Console.
