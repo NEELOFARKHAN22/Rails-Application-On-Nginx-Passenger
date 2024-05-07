@@ -182,9 +182,8 @@
         4. **Edit Inbound Rules:**
             - In the security group settings, locate the "Inbound rules" tab and click on "Edit inbound rules".
         5. **Add Rule for Port 3000:**
-            - Add a new rule allowing TCP traffic on port 3000 by clicking on "Add rule" or "Add another rule". Select "Custom TCP" as the type, specify port 3000, and set the source to "Anywhere" (0.0.0.0/0) to allow traffic from any IP address.
+            - Add a new rule allowing TCP traffic on port 3000 by clicking on ``Add rule`` or ``Add another rule``. Select ``Custom TCP`` as the type, specify port ``3000``, and set the source to ``Anywhere`` (``0.0.0.0/0``) to allow traffic from any IP address.
         6. **Save Changes:**
             - Once you've added the rule, save the changes to update the security group configuration.
     - After updating the security rules, TCP traffic on port 3000 will be permitted, allowing users to access your Rails application.
     - Ensure to follow security best practices and restrict access to only trusted IP addresses if necessary.
-
