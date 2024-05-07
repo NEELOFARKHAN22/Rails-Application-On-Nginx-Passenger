@@ -1,4 +1,19 @@
 # Railsify: Deploying Ruby on Rails with Nginx and Passenger on AWS EC2
+## Table of Contents
+1. [Setting Up EC2 Instance with Ubuntu](#setting-up-ec2-instance-with-ubuntu)
+    - [Create EC2 Instance](#create-ec2-instance)
+    - [Connect to EC2 Instance](#connect-to-ec2-instance)
+    - [Update and Install Dependencies](#update-and-install-dependencies)
+    - [Install Ruby and Bundler](#install-ruby-and-bundler)
+    - [Install Passenger and Nginx](#install-passenger-and-nginx)
+    - [Configure Nginx](#configure-nginx)
+2. [Deploying Ruby on Rails Application with Nginx and Passenger](#deploying-ruby-on-rails-application-with-nginx-and-passenger)
+    - [Install Rails and Create New App](#install-rails-and-create-new-app)
+    - [Configure Gemfile for Asset Pipeline](#configure-gemfile-for-asset-pipeline)
+    - [Setup Nginx Control Script](#setup-nginx-control-script)
+    - [Control Nginx Server](#control-nginx-server)
+    - [Run Rails Server](#run-rails-server)
+    - [Security Configuration](#security-configuration)
 
 ## Setting Up EC2 Instance with Ubuntu
 1. **Create EC2 Instance:**
