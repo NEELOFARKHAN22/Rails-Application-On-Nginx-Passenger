@@ -1,0 +1,69 @@
+
+<h2> <%=@b.fname%> Profile </h2>
+ <%if @b.image.attached?%>
+<p><%= image_tag @b.image,width: "200px"%></p>
+<%end%>
+<p>Name: <%=@b.fname%> <%=@b.lname%><p>
+<p>Email:<%=@b.email%></p>
+
+
+<%posts = @b.posts.all%>
+<div class= "container">
+<%posts.each do|post|%>
+
+ <p class="card-text">
+    <strong>By:</strong>
+    <%= post.user.fname %>
+  </p>
+
+<div class="card" style="width: 15rem;" >
+
+
+  <div class = "d-flex flex-wrap">
+        <div class="rounded mx-auto d-block my-3">
+
+  <%if post.avatar.attached?%>
+    <strong>Avatar</strong><br>
+
+  <%= image_tag post.avatar,width: "200px",style:"height: 8rem;"%>
+<%end%>
+
+  <p>
+ 
+
+  <%if post.images.attached?%>
+      <strong>Images</strong><br>
+  <%post.images.each do |image|%>
+
+
+  <%= image_tag image,width: "200px",style:"height: 8rem;"%>
+  
+  <%end%>
+<div class = "mb-3">
+   <%# <strong>Body:</strong> %>
+    <%= post.body %>
+    </div>
+<%end%>
+
+</div>
+
+</div>
+</div>
+
+   
+
+      
+    </p>
+  </p>
+
+
+   
+
+
+  <%# <p>
+    <strong>User:</strong>
+    <%= post.user_id %>
+  </p> 
+</div>
+<%end%>
+</div>

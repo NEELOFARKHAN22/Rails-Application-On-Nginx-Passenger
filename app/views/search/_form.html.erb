@@ -1,0 +1,4 @@
+<%= search_form_for(@query,url: search_path,mehtod: :get,class: "d-flex") do |f| %>
+    <%= f.search_field :fname_or_email_cont, placeholder: "Search..." ,class: "form-control me-2"%>
+    <%= f.submit "Search!",class:"btn btn-outline_success" %>
+<% end %>

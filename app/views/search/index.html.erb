@@ -1,0 +1,108 @@
+<h1 class= "text-centre"><%= pluralize(@users.count,"Result")%></h1>
+
+
+
+<%@u = current_user%>    
+       <%@pending = @u.pending_invitations%>
+ <div class = "d-flex flex-wrap ">
+<%@users.each do |a|%>
+
+<%@b = a%>
+      
+
+
+
+
+
+
+                                                         <%ab = Invitation.where(friend_id: current_user.id,user_id: a.id) %>
+              <%if @pending.include?(ab[0])%>
+                    <%next%>
+                <%else%>
+                            <%if a.id != current_user.id%>
+                                    <%inv = Invitation.where(user_id: current_user.id,friend_id: a.id) %>
+                                            <%if inv.empty?%>
+                                            <%inv = Invitation.where(friend_id: current_user.id,user_id: a.id) %>
+                                    <%end%>        
+        <% if current_user.friend_with?(a)%>
+
+
+                            <div class="card" style="width: 10rem;margin-right: 30px;margin-bottom: 30px;">
+                      
+                      <%if a.image.attached?%>
+                     <%= image_tag a.image,width: "30px",class:"card-img-top",style:"height: 8rem;"%> 
+                     <%end%>
+                            <div class="card-body">
+                              <h5 class="card-title"><%=a.fname%> <%=a.lname%> </h5>
+                              <p class="card-text">Email: <%=a.email%></p>
+                            </div>
+
+
+                           <div class="card-body"style="display: flex;justify-content: space-evenly;">
+                            <p class="card-link">
+                              <%=link_to "unfriend","/invitations/#{inv.ids[0]}", class: "btn btn-danger",data: {"turbo-method": :delete}%>
+                            
+                            </p>
+
+                            
+                           <p class="card-link">
+                                        <%=link_to "Pofile",invitation_path(@b), class: "btn btn-info",method: :get%>
+                            
+                            </p>
+
+                          </div>
+                          </div>
+
+
+
+                                                                            
+
+
+
+            <%else%>
+                                <div class="card" style="width: 10rem;margin-right: 30px;margin-bottom: 30px;">
+                  
+                    <%if a.image.attached?%>
+                        <%= image_tag a.image,width: "30px",class: "card-img-top",style:"height: 8rem;"%> 
+                    <%end%>
+                    <div class="card-body; ">
+                      <h5 class="card-title"> <%=a.fname%> <%=a.lname%></h5>
+                      <p class="card-text"><%=a.email%></p>
+                    </div>
+                   
+                    <div class="card-body">
+                    <%if Invitation.reacted?(current_user[:id],a.id)%>
+                         <%=link_to "Cancel Request","/invitations/#{inv.ids[0]}", class: "btn btn-danger",data: {"turbo-method": :delete} %>
+                         <%else%>
+
+                      <%= button_to"Add Friend",invitations_path(:friend_id=>a.id),class: "btn btn-primary"%>
+                    <%end%>
+                     
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <%end%>
+        <%end%>
+
+  <%end%>
+<%end%> 
+</div>
+
+
+
+
+
+
+

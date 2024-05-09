@@ -1,0 +1,13 @@
+<p><b><%=comment.user.fname%></b></p>
+<div>
+        <%=comment.body%>
+<div align = "centre"><%=comment.user.fname%></div>
+
+<p>
+  <%= link_to "Destroy Comment", [comment.post, comment], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } %>
+</p>
+
+</div>

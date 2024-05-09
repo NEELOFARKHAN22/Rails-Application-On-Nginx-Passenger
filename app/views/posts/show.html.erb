@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @post %>
+
+<%=@post.likes.count%> likes
+<%like = current_user.likes.find_by(post: @post)%>
+
+
+<%if like.nil?%>
+
+  <%=button_to "Like", likes_path,params:{like:{post_id: @post.id}},class: "btn btn-success",method: :post%>
+
+
+<%else%>
+ <%=button_to "Unike", like_path(like),class:"btn btn-danger",data: {
+ "turbo-method": :delete
+},method: :delete%>
+
+<%end%>
+<div>
+
+  <%= link_to "Back to posts", posts_path %><br>
+
+<% if current_user.id == @post.user_id%>
+    <%= link_to "Edit this post", edit_post_path(@post) %> |  
+  <%= button_to "Destroy this post", @post, method: :delete %>
+  <%end%>
+</div>
+
+
+<%= render @post.comments%>
+<h5>Add a comment</h5>
+<%= render partial: "comments/form"%>

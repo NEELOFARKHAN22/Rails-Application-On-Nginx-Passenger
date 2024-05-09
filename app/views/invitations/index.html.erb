@@ -1,0 +1,53 @@
+<h3> Friend Requests</h3>
+
+<% if !@pending.empty? %>
+
+<% @pending.each do |p| %>
+
+                <%inv= p.id%>
+
+
+            <%if current_user.friend_with?(p.user)%>
+                    <p>Friends</p>
+                    <%=p.user.fname%>
+                    <br>
+            <%else%>
+                                <div class = "d-flex flex-wrap">
+                                        
+                                        <div class="card" style="width: 10rem; margin-right: 20px;">
+                        <%# <img class="card-img-top" src="..." alt="Card image cap"> %>
+                         <%if p.user.image.attached?%>
+                          <div class="rounded mx-auto d-block my-3">
+                           <%= image_tag p.user.image,width: "30px",class: "card-img-top",style:"height: 8rem;"%> 
+          
+                        <%end%>
+                                                
+                        <div class="card-body">
+                        <h5 class="card-title"> <%=p.user.fname%> <%=p.user.lname%></h5>
+
+                        <p class="card-text">Email: <%=p.user.email%></p>
+                        </div>
+                         <div class="row">
+                        <div class="card-body"style="display: flex;justify-content: space-evenly;">
+                      
+                        <p class="card-link"> <%= button_to "Accept",accept_path, params: {id: p.id,confirmed: true}, method: :patch,class: "btn btn-primary"%> </p>
+                        <p class="card-link"> <%=link_to "Reject","/invitations/#{inv}", class: "btn btn-primary",data: {"turbo-method": :delete}%></p>
+                        </div>
+                        </div>
+                        </div>
+                          </div>
+
+          <%end%>
+        
+  <%end%>
+
+
+  <%else%>
+         
+<p>No pending Request</p>
+<%end%>
+
+
+
+    
+

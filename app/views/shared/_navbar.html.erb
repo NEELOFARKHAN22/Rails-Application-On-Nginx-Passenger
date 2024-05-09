@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light "style="background-color: #3b5998; color: white ">
+  <div class="container-fluid">
+    <%# <a class="navbar-brand" href="#">FaseBook</a> %>
+    <%= link_to "Fasebook",root_path,class: "navbar-brand"%>
+
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      
+
+
+                  <%if user_signed_in?%>
+
+              </li>
+           <%if current_user.image.attached?%>
+               <%= image_tag current_user.image,width: "50px"%>
+               <%end%>
+            </li>
+            <li>
+              <%= link_to "Find Friends", user_index_path,class: "nav-link active"  %>
+            </li>
+            <li>
+                <%= link_to "Friend Request", invitations_path,class: "nav-link active"  %>
+            </li>
+            <li>
+                  <%=link_to "Profile",user_path(current_user),class: "nav-link active"%>
+            </li>
+             <li>
+                    <%= link_to "Edit Your Profile",  edit_user_registration_path ,class: "nav-link active" %>
+            </li>
+             <li>
+
+                     <%= link_to "Log out", destroy_user_session_path,data: {"turbo-method": :delete}, class: "nav-link active" %>
+            </li>
+
+                <ul calss= "navbar-nav" style="margin-left: 270px">
+                        <%=render 'search/form'%>
+                </ul>
+
+
+            <%else%>
+
+                    <li class="nav-item">
+                        <%=link_to "Sing UP " ,new_user_registration_path,class: "nav-link"%>
+                    </li>
+                    <li class="nav-item">
+                          <%=link_to "Log In " , new_user_session_path,class: "nav-link active"%>
+                    </li>
+
+            <%end%>
+     
+            </ul>
+                </div>
+              </div>
+            </nav>

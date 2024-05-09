@@ -1,0 +1,42 @@
+<%= button_to "New post", new_post_path,class: "btn btn-info",method: :get %>
+<%# <%= link_to "New post", new_post_path %> 
+
+
+
+<p style="color: green"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <%= render post %>
+    <p>
+    
+
+
+
+<%=post.likes.count%> likes
+<%like = current_user.likes.find_by(post: post)%>
+
+
+<%if like.nil?%>
+
+  <%=button_to "Like", likes_path,params:{like:{post_id: post.id}},class: "btn btn-success",method: :post, remote:true%>
+
+
+<%else%>
+ <%=button_to "Unike", like_path(like),class: "btn btn-danger",data: {
+ "turbo-method": :delete
+},method: :delete%>
+
+<%end%>
+
+
+ <%= link_to "Show this post", post,class: "btn btn-secondary" %>
+    </p>
+
+  <% end %>
+</div>
+
+
+
