@@ -1,5 +1,38 @@
 # Railsify: Deploying Ruby on Rails with Nginx and Passenger on AWS EC2
 
+## Table of Contents
+
+1. [Setting Up EC2 Instance with Ubuntu](#setting-up-ec2-instance-with-ubuntu)
+    - [Create EC2 Instance](#create-ec2-instance)
+    - [Connect to EC2 Instance](#connect-to-ec2-instance)
+    - [Update and Install Dependencies](#update-and-install-dependencies)
+    - [Install Ruby and Bundler](#install-ruby-and-bundler)
+    - [Install Passenger and Nginx](#install-passenger-and-nginx)
+    - [Configure Nginx](#configure-nginx)
+    - [Control Nginx Server](#control-nginx-server)
+2. [Deploying Ruby on Rails Application with Nginx and Passenger](#deploying-ruby-on-rails-application-with-nginx-and-passenger)
+    - [Install Rails and Create New App](#install-rails-and-create-new-app)
+    - [Configure Gemfile for Asset Pipeline](#configure-gemfile-for-asset-pipeline)
+    - [Setup Nginx Control Script](#setup-nginx-control-script)
+    - [Control Nginx Server](#control-nginx-server)
+    - [Run Rails Server](#run-rails-server)
+    - [Security Configuration](#security-configuration)
+3. [Setting Up Rails Application with PostgreSQL](#setting-up-rails-application-with-postgresql)
+    - [Clone Repository and Navigate to Directory](#clone-repository-and-navigate-to-directory)
+    - [Install Required Dependencies](#install-required-dependencies)
+    - [Install rbenv](#install-rbenv)
+    - [Install Ruby](#install-ruby)
+    - [Install Bundler and Bundle Gems](#install-bundler-and-bundle-gems)
+    - [Install PostgreSQL](#install-postgresql)
+    - [Access PostgreSQL Shell](#access-postgresql-shell)
+    - [Update Gemfile for PostgreSQL](#update-gemfile-for-postgresql)
+    - [Install PostgreSQL Adapter and Bundle Gems](#install-postgresql-adapter-and-bundle-gems)
+    - [Create Database](#create-database)
+    - [Run Migrations](#run-migrations)
+    - [Run Rails Server](#run-rails-server)
+
+
+
 ## Setting Up EC2 Instance with Ubuntu
 1. **Create EC2 Instance:**
     - Log in to AWS Management Console.
@@ -182,8 +215,196 @@
         4. **Edit Inbound Rules:**
             - In the security group settings, locate the "Inbound rules" tab and click on "Edit inbound rules".
         5. **Add Rule for Port 3000:**
-            - Add a new rule allowing TCP traffic on port 3000 by clicking on "Add rule" or "Add another rule". Select "Custom TCP" as the type, specify port 3000, and set the source to "Anywhere" (0.0.0.0/0) to allow traffic from any IP address.
+            - Add a new rule allowing TCP traffic on port 3000 by clicking on ``Add rule`` or ``Add another rule``. Select ``Custom TCP`` as the type, specify port ``3000``, and set the source to ``Anywhere`` (``0.0.0.0/0``) to allow traffic from any IP address.
         6. **Save Changes:**
             - Once you've added the rule, save the changes to update the security group configuration.
     - After updating the security rules, TCP traffic on port 3000 will be permitted, allowing users to access your Rails application.
     - Ensure to follow security best practices and restrict access to only trusted IP addresses if necessary.
+## 3. Setting Up Rails Application with PostgreSQL
+
+1. **Clone Repository and Navigate to Directory:**
+   
+   - **Create Directory:**
+       ```bash
+        mkdir github-file
+        ```
+    - Creates a new directory named "github-file" to store the project files.
+
+    - **Change Directory:**
+        ```bash
+        cd github-file/
+        ```
+    - Changes the current working directory to the newly created "github-file" directory.
+
+    - **Clone Repository:**
+        ```bash
+        git clone https://github.com/saditya370/1FaseBook-Odin-Project.git
+        ```
+    - Clones the project repository from the specified GitHub URL into the current directory.
+
+    - **Navigate to Project Directory:**
+        ```bash
+        cd 1FaseBook-Odin-Project/
+        ```
+    - Changes the current working directory to the cloned project directory for further setup.
+2. **Install Required Dependencies**:
+
+    - **Install Dependencies:**
+        ```bash
+        sudo apt install git curl libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential libyaml-dev libreadline-dev libncurses5-dev libffi-dev             libgdbm-dev
+        ```
+    - Installs essential development dependencies required for Ruby and Rails development.
+      
+3. **Install rbenv:**
+
+    - **Setup rbenv:**
+        ```bash
+        curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+        ```
+        - Downloads and runs the rbenv installer script, setting up rbenv for managing Ruby versions.
+
+    - **Update PATH Environment Variable:**
+        ```bash
+        echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+        ```
+        - Adds rbenv's bin directory to the system PATH, allowing rbenv to be executed from any location in the terminal.
+
+    - **Initialize rbenv:**
+        ```bash
+        echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+        ```
+        - Initializes rbenv by adding the necessary shell initialization code to ~/.bashrc, enabling rbenv's functionality in the current shell.
+
+    - **Source ~/.bashrc:**
+        ```bash
+        source ~/.bashrc
+        ```
+        - Reloads the ~/.bashrc file to apply the changes made, ensuring rbenv is properly configured and available in the current shell.
+4. **Install Ruby:**
+
+    - **Download and Install Ruby 3.1.2:**
+        ```bash
+        rbenv install 3.1.2
+        ```
+        - Downloads and installs Ruby version 3.1.2 using rbenv, ensuring the correct Ruby version is available for the Rails application.
+
+    - **Check Installed Ruby Versions:**
+        ```bash
+        rbenv versions
+        ```
+        - Lists all installed Ruby versions managed by rbenv, verifying that Ruby 3.1.2 is successfully installed.
+
+    - **Set Global Ruby Version:**
+        ```bash
+        rbenv global 3.1.2
+        ```
+        - Sets Ruby version 3.1.2 as the global version, ensuring that this version is used by default for all Ruby projects.
+5. **Install Bundler and Bundle Gems:**
+
+    - **Install Bundler:**
+        ```bash
+        gem install bundler
+        ```
+        - Installs Bundler, a dependency manager for Ruby projects, which will be used to manage gem dependencies for the Rails application.
+
+    - **Install Project Dependencies:**
+        ```bash
+        bundle install
+        ```
+        - Installs all gem dependencies specified in the Gemfile for the Rails project, ensuring that all required gems are installed and available.
+
+6. **Install PostgreSQL:**
+
+    - **Install PostgreSQL Database:**
+        ```bash
+        sudo apt install postgresql
+        ```
+        - Installs PostgreSQL, an open-source relational database management system, which will be used to store application data.
+
+    - **Verify PostgreSQL Installation:**
+        ```bash
+        psql --version
+        ```
+        - Checks the installed PostgreSQL version to confirm that PostgreSQL is successfully installed and available for use.
+
+    - **Start PostgreSQL Service:**
+        ```bash
+        sudo systemctl start postgresql.service
+        ```
+        - Initiates the PostgreSQL service, allowing the Rails application to interact with the PostgreSQL database.
+
+    - **Verify Ruby Installation:**
+        ```bash
+        ruby -v
+        ```
+        - Displays the installed Ruby version, confirming that Ruby 3.1.2 is now the active version.
+
+7. **Access PostgreSQL Shell:**
+
+    - **Switch to PostgreSQL User:**
+        ```bash
+        sudo -u postgres psql
+        ```
+        - Executes the PostgreSQL command-line interface (CLI) as the postgres user, allowing direct access to the PostgreSQL database.
+
+    - **Verify Successful Access:**
+        ```bash
+        \q
+        ```
+        - Exits the PostgreSQL shell, returning to the terminal prompt, confirming successful access and interaction with the PostgreSQL database.
+
+8. **Update Gemfile for PostgreSQL:**
+
+    - **Open Gemfile for Editing:**
+        ```bash
+        sudo nano Gemfile
+        ```
+        - Opens the Gemfile in the Nano text editor for editing, allowing modifications to the project's dependencies.
+
+    - **Comment Out SQLite Gem:**
+        - Locate the line containing `gem 'sqlite3'` in the Gemfile and add a `#` at the beginning of the line to comment it out. This step is necessary to                 ensure that the Rails application uses PostgreSQL instead of SQLite as the database backend.
+
+    - **Save Changes and Exit Editor:**
+        - Press `Ctrl + X` to exit Nano, followed by `Y` to confirm saving changes, and then press `Enter` to confirm the filename. This saves the modified                 Gemfile and exits the text editor.
+9. **Install PostgreSQL Adapter and Bundle Gems:**
+
+    - **Install PostgreSQL Adapter:**
+        ```bash
+        bundle install
+        ```
+        - This command installs the necessary gems specified in the Gemfile, including the 'pg' gem, which is a PostgreSQL adapter for Ruby on Rails. The 'pg'             gem allows Rails applications to interact with PostgreSQL databases by providing the required database interface.
+
+10. **Create Database:**
+
+    - **Run Database Creation Task:**
+        ```bash
+        rails db:create
+        ```
+        - This command triggers a Rails task that creates the specified PostgreSQL database. When you run a Rails application with a PostgreSQL database, you             need to create the database before you can start using it. This task sets up the database structure and prepares it for storing application data.
+
+11. **Run Migrations:**
+
+    - **Execute Database Migrations:**
+        ```bash
+        rails db:migrate
+        ```
+        - Database migrations are a way to manage changes to the database schema over time. This command runs any pending migrations that haven't been applied             to the database yet. Each migration file represents a change to the database schema, such as creating or modifying tables. By running migrations, you             ensure that the database structure matches the current state of your Rails application.
+12. **Run Rails Server:**
+
+    - **Start the Rails Application Server:**
+        ```bash
+        rails server -b 0.0.0.0
+        ```
+        - This command launches the built-in web server provided by Ruby on Rails, allowing the Rails application to handle incoming HTTP requests. The `-b`             option specifies the IP address on which the server should listen for connections. In this case, `0.0.0.0` means the server will bind to all available             IP addresses on the host, making the application accessible from any IP address.
+
+        - **Background Execution:**
+            - The `&` symbol at the end of the command runs the server process in the background, allowing you to continue using the terminal without                         interruption. This is useful for development purposes, as it frees up the terminal for running other commands while keeping the server running in                 the background.
+
+    - **Accessing the Rails Application:**
+        - Once the server is running, you can access your Rails application by navigating to the appropriate URL in your web browser. By default, the Rails                 server listens on port 3000, so you can access the application at `http://localhost:3000` if you're accessing it from the same machine where the                 server is running.
+
+    - **Development Environment:**
+        - The Rails server is primarily used during the development phase of a Rails application. It provides a convenient way to preview your application and             test its functionality locally before deploying it to a production environment.
+
+    - **Stopping the Server:**
+        - To stop the Rails server, you can press `Ctrl + C` in the terminal where it's running. This will gracefully shut down the server and free up the                     terminal for other tasks. It's important to remember to stop the server when you're done working on your application to conserve system resources                 and prevent unintended access to the application.
